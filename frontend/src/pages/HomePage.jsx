@@ -8,15 +8,11 @@ const HomePage = () => {
   const [notes, setNotes] = useState([]);
   const [isloading, setIsLoading] = useState(true);
 
-  const API_URL = "http://localhost:5003/api/notes";
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`${API_URL}`);
-        const data = await res.json();
-        console.log(data);
-        setNotes(data);
+        const res = await API.post(`/notes`);
+        setNotes(res.data);
       } catch (error) {
         console.log("Error To fetch Data!", error);
       } finally {

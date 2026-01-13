@@ -2,7 +2,7 @@ import React from "react";
 import { Pencil, Trash2 } from "lucide-react";
 import { Link } from "react-router";
 import { formatDate } from "../libs/utils";
-import axios from "axios";
+import API from "../libs/axios";
 
 function NoteCard({ note, setNotes }) {
   const [isDeleting, setIsDeleting] = React.useState(false);
@@ -12,7 +12,7 @@ function NoteCard({ note, setNotes }) {
     setIsDeleting(true);
     try {
       // Implement delete functionality here
-      await axios.delete(`http://localhost:5003/api/notes/${id}`);
+      await API.delete(`/notes/${id}`);
 
       setNotes((prev) => prev.filter(note._id !== id));
       window.location.reload();

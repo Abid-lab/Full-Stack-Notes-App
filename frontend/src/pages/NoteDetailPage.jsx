@@ -1,11 +1,11 @@
-import axios from "axios";
-import { ArrowBigLeft, ArrowLeftIcon, LoaderIcon } from "lucide-react";
+import { LoaderIcon } from "lucide-react";
 import { useState } from "react";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { Link, useParams } from "react-router";
 import { useNavigate } from "react-router";
 import { ArrowLeft } from "lucide-react";
+import API from "../libs/axios";
 
 const NoteDetailPage = () => {
   const [notes, setNotes] = useState([]);
@@ -18,7 +18,7 @@ const NoteDetailPage = () => {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await axios.get(`http://localhost:5003/api/notes/${id}`);
+        const res = await API.get(`/notes/${id}`);
         setNotes(res.data);
       } catch (error) {
         console.log("field to fetch the note", error);
@@ -40,7 +40,7 @@ const NoteDetailPage = () => {
 
     try {
       setIsSaving(true);
-      await axios.put(`http://localhost:5003/api/notes/${id}`, notes);
+      await API.put(`/notes/${id}`, notes);
       toast.success("Note Updated Successfully!");
       navigate("/");
     } catch (error) {
